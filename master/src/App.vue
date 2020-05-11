@@ -1,9 +1,11 @@
 <template>
   <div id="test">
     <button @click="go('/o')">7001</button>
-    <button @click="go('/t/about')">7002</button>
+    <button @click="go('/t')">7002</button>
     <div id="subapp-viewport" class="app-view-box"></div>
 <!--    <div id="root-view" class="app-view-box" v-html="content"></div>-->
+    <button @click="go('/o')">7001</button>
+    <button @click="go('/t')">7002</button>
   </div>
 </template>
 

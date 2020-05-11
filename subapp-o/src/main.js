@@ -29,6 +29,8 @@ export async function mount(props) {
     store,
     render: h => h(App)
   }).$mount("#app");
+  console.log('instance:', instance)
+  console.log('instance:', router)
 }
 
 // 导出子应用生命周期 挂载前 卸载后
