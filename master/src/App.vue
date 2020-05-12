@@ -1,20 +1,40 @@
 <template>
   <div id="test">
     <button @click="go('/o')">7001</button>
-    <button @click="go('/t')">7002</button>
-    <div id="subapp-viewport" class="app-view-box"></div>
+    <button @click="go('/t/about')">7002</button>
+    <component
+      :is="routerViewLayOut"
+    ></component>
+<!--    <div id="subapp-viewport" class="app-view-box"></div>-->
 <!--    <div id="root-view" class="app-view-box" v-html="content"></div>-->
     <button @click="go('/o')">7001</button>
-    <button @click="go('/t')">7002</button>
+    <button @click="go('/t/home')">7002</button>
   </div>
 </template>
 
 <script>
+  import FullLayout from "./layout/FullLayout";
+  import MenuLayout from "./layout/MenuLayout";
 export default {
   name: "root-view",
+  components: {
+    FullLayout,
+    MenuLayout,
+  },
   props: {
     loading: Boolean,
-    content: String
+    content: String,
+    showMicro: Boolean,
+    config: Object,
+  },
+  computed: {
+    // 根据规则判断返回渲染模板,比如有 微服务的渲染模板,带菜单的渲染模板,不带菜单全屏的渲染模板
+    routerViewLayOut() {
+      if (this.showMicro) {
+        return "FullLayout";
+      }
+      return "MenuLayout";
+    }
   },
   methods: {
     go(url) {

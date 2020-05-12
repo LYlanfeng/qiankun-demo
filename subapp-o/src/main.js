@@ -17,7 +17,7 @@ let instance = null;
 export async function bootstrap() {
   console.log('vue app bootstraped');
 }
-export async function mount(props) {
+export async function mount(props = {}) {
   console.log(props)
   router = new VueRouter({
     base: window.__POWERED_BY_QIANKUN__ ? "/o" : "/",
@@ -29,8 +29,16 @@ export async function mount(props) {
     store,
     render: h => h(App)
   }).$mount("#app");
-  console.log('instance:', instance)
-  console.log('instance:', router)
+  if (router && props.master) {
+    instance.$watch(
+        "$route",
+        function(val) {
+            console.log('路由变化', props.master)
+          props.master.$data.showMicro = val.meta && val.meta.pageLayout;
+        },
+        { immediate: true }
+    );
+  }
 }
 
 // 导出子应用生命周期 挂载前 卸载后

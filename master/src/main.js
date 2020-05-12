@@ -14,18 +14,36 @@ import {
 
 Vue.config.productionTip = false;
 
-
+let instance = null
 export function vueRender() {
-  new Vue({
+  instance = new Vue({
     el: "#container",
     // router,
     store,
-    render: h=> h(App)
+    data: {
+      showMicro: false,
+      config: {},
+    },
+    // template: '<App :show-micro="showMicro" :config="config"/>',
+    // components: { App }
+    // render: h=> h(App)
+    render(h) {
+      return h(App, {
+        props: {
+          showMicro: this.showMicro,
+          config: this.config,
+        }
+      })
+    }
   });
 }
 
 vueRender()
 
+function render(content) {
+  console.log('render')
+  console.log(content)
+}
 // function genActiveRule(routerPrefix) {
 //   return location => location.pathname.startsWith(routerPrefix);
 // }
@@ -38,7 +56,11 @@ registerMicroApps(
       name: "subapp-o",
       entry: "//localhost:7001",
       container: "#subapp-viewport",
-      activeRule: "/o"
+      activeRule: "/o",
+      // render: render,
+      props: {
+        master: instance
+      }
     },
     {
       name: "subapp-t",
