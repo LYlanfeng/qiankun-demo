@@ -19,7 +19,7 @@ const cdn = {
     // vuex
     "https://cdn.bootcss.com/vuex/3.1.0/vuex.min.js",
     // vue-router
-    "https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js",
+    "https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"
   ]
 };
 const config = {
@@ -27,25 +27,39 @@ const config = {
   lintOnSave: false,
   devServer: {
     // https: true,
-    port: 7000,
-  },
-  chainWebpack: (config) => {
-    config.externals({
-      vue: "Vue",
-      "vue-router": "VueRouter",
-      vuex: "Vuex",
-    })
-    config.plugin("html").tap(args => {
-      args[0].cdn = cdn;
-      return args;
-    })
-    // config.resolve.alias
-    //   .set('ly-js', 'ly-js/dist/ly.eui.esm.js')
-  },
+    port: 7000
+  }
   // chainWebpack: (config) => {
   //   config.resolve.alias
   //     .set('ly-js', 'ly-js/dist/ly.eui.esm.js')
   // },
 };
+if (process.env.NODE_ENV === "production") {
+  config.chainWebpack = config => {
+    config.externals({
+      vue: "Vue",
+      "vue-router": "VueRouter",
+      vuex: "Vuex"
+    });
+    config.plugin("html").tap(args => {
+      args[0].cdn = cdn;
+      return args;
+    });
+    // config.resolve.alias
+    //   .set('ly-js', 'ly-js/dist/ly.eui.esm.js')
+  };
+} else {
+  config.chainWebpack = config => {
+    config.plugin("html").tap(args => {
+      args[0].cdn = {
+        css: [],
+        js: []
+      };
+      return args;
+    });
+    // config.resolve.alias
+    //   .set('ly-js', 'ly-js/dist/ly.eui.esm.js')
+  };
+}
 
 module.exports = config;

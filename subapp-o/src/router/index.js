@@ -11,7 +11,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      pageLayout: true
+      pageLayout: 1
     }
   },
   {
@@ -23,7 +23,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
     meta: {
-      pageLayout: false
+      pageLayout: 2
     }
   }
 ];

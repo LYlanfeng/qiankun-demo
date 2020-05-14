@@ -3,34 +3,34 @@
     <div>7002</div>
     <div id="nav">
       <router-link to="/">Home</router-link> |
+      <router-link to="/aboutt">AboutT</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <keep-alive>
-      <router-view/>
+      <router-view />
     </keep-alive>
   </div>
 </template>
 <script>
-  export default {
-    name: 'Home',
-    components: {
-    },
-    data() {
-      return {
-        value: '',
-      }
-    },
-    mounted() {
-      console.log('t app.vue mounted:', this.value)
-    },
-    activated() {
-      console.log('t app.vue activated')
-      console.log(this.$router)
-    },
-    deactivated() {
-      console.log('t app.vue deactivated')
-    }
+export default {
+  name: "Home",
+  components: {},
+  data() {
+    return {
+      value: ""
+    };
+  },
+  mounted() {
+    console.log("t app.vue mounted:", this.value);
+  },
+  activated() {
+    console.log("t app.vue activated");
+    console.log(this.$router);
+  },
+  deactivated() {
+    console.log("t app.vue deactivated");
   }
+};
 </script>
 <style lang="scss">
 #app {

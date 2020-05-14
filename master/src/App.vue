@@ -2,6 +2,7 @@
   <div id="test">
     <button @click="go('/o')">7001</button>
     <button @click="go('/t/about')">7002</button>
+    <div>{{pageLayout}}</div>
     <component
       :is="routerViewLayOut"
     ></component>
@@ -23,7 +24,6 @@ export default {
   },
   props: {
     loading: Boolean,
-    content: String,
     showMicro: Boolean,
     config: Object,
   },
@@ -34,6 +34,14 @@ export default {
         return "FullLayout";
       }
       return "MenuLayout";
+    },
+    pageLayout() {
+     if (!this.config)  {
+       return 0
+     }
+     if (this.config.dataInfo) {
+       return this.config.dataInfo.pageLayout
+     }
     }
   },
   methods: {

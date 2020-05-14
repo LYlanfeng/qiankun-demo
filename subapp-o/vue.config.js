@@ -48,19 +48,6 @@ const config = {
       'Access-Control-Allow-Origin': '*',
     },
   },
-  chainWebpack: (config) => {
-    config.externals({
-      vue: "Vue",
-      "vue-router": "VueRouter",
-      vuex: "Vuex",
-    })
-    config.plugin("html").tap(args => {
-      args[0].cdn = cdn;
-      return args;
-    })
-    // config.resolve.alias
-    //   .set('ly-js', 'ly-js/dist/ly.eui.esm.js')
-  },
   configureWebpack: {
     resolve: {
       alias: {
@@ -75,5 +62,32 @@ const config = {
     },
   },
 };
+if (process.env.NODE_ENV === "production") {
+  config.chainWebpack = config => {
+    config.externals({
+      vue: "Vue",
+      "vue-router": "VueRouter",
+      vuex: "Vuex"
+    });
+    config.plugin("html").tap(args => {
+      args[0].cdn = cdn;
+      return args;
+    });
+    // config.resolve.alias
+    //   .set('ly-js', 'ly-js/dist/ly.eui.esm.js')
+  };
+} else {
+  config.chainWebpack = config => {
+    config.plugin("html").tap(args => {
+      args[0].cdn = {
+        css: [],
+        js: []
+      };
+      return args;
+    });
+    // config.resolve.alias
+    //   .set('ly-js', 'ly-js/dist/ly.eui.esm.js')
+  };
+}
 
 module.exports = config;
