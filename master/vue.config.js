@@ -12,6 +12,7 @@ const cdn = {
     // "https://cdn.bootcss.com/element-ui/2.13.0/theme-chalk/index.css",
     // "http://cdn.enfry.com/enfryComponents." + enfryComponentsVersion + ".css",
     // ...externalLink.css
+    "https://unpkg.com/element-ui/lib/theme-chalk/index.css",
   ],
   js: [
     // vue
@@ -19,7 +20,8 @@ const cdn = {
     // vuex
     "https://cdn.bootcss.com/vuex/3.1.0/vuex.min.js",
     // vue-router
-    "https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"
+    "https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js",
+    "https://unpkg.com/element-ui/lib/index.js",
   ]
 };
 const config = {
