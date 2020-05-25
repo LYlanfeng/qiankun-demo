@@ -247,6 +247,32 @@ vueRender();
 // }
 
 // render();
+const routes = [
+  {
+    name: "subapp-o",
+    entry: "//localhost:7001",
+    container: "#subapp-viewport",
+    activeRule: "/o"
+  },
+  {
+    name: "subapp-t",
+    entry: "//localhost:7002",
+    container: "#subapp-viewport",
+    activeRule: "/t"
+  },
+  {
+    name: "userHome",
+    entry: "http://localhost:8124",
+    container: "#subapp-viewport",
+    activeRule: "/user/home"
+  },
+  {
+    name: "userTicketWallet",
+    entry: "http://localhost:8127",
+    container: "#subapp-viewport",
+    activeRule: "/user/ticket-wallet"
+  }
+];
 const lifeCycles = {
   beforeLoad: [
     app => {
@@ -264,35 +290,7 @@ const lifeCycles = {
     }
   ]
 };
-registerMicroApps(
-  [
-    {
-      name: "subapp-o",
-      entry: "//localhost:7001",
-      container: "#subapp-viewport",
-      activeRule: "/o"
-    },
-    {
-      name: "subapp-t",
-      entry: "//localhost:7002",
-      container: "#subapp-viewport",
-      activeRule: "/t"
-    },
-    {
-      name: "userHome",
-      entry: "http://localhost:8124",
-      container: "#subapp-viewport",
-      activeRule: "/user/home"
-    },
-    {
-      name: "userTicketWallet",
-      entry: "http://localhost:8127",
-      container: "#subapp-viewport",
-      activeRule: "/user/ticket-wallet"
-    }
-  ],
-  lifeCycles
-);
+registerMicroApps(routes, lifeCycles);
 
 // 设置默认子应用,参数与注册子应用时genActiveRule("/o")函数内的参数一致
 // setDefaultMountApp("o");
