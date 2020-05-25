@@ -247,7 +247,23 @@ vueRender();
 // }
 
 // render();
-
+const lifeCycles = {
+  beforeLoad: [
+    app => {
+      console.log("before load", app);
+    }
+  ],
+  beforeMount: [
+    app => {
+      console.log("before mount", app);
+    }
+  ],
+  afterUnmount: [
+    app => {
+      console.log("after-unmount", app);
+    }
+  ]
+};
 registerMicroApps(
   [
     {
@@ -275,30 +291,14 @@ registerMicroApps(
       activeRule: "/user/ticket-wallet"
     }
   ],
-  {
-    beforeLoad: [
-      app => {
-        console.log("before load", app);
-      }
-    ],
-    beforeMount: [
-      app => {
-        console.log("before mount", app);
-      }
-    ],
-    afterUnmount: [
-      app => {
-        console.log("after-unmount", app);
-      }
-    ]
-  }
+  lifeCycles
 );
 
 // 设置默认子应用,参数与注册子应用时genActiveRule("/o")函数内的参数一致
 // setDefaultMountApp("o");
 
 // 启动微服务
-// start();
+start();
 
 // 第一个子应用加载完毕回调
 // runAfterFirstMounted(() => {
