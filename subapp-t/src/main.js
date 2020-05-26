@@ -9,25 +9,27 @@ import { startSlave } from "en-micro";
 Vue.config.productionTip = false;
 
 // Vue.use(VueRouter);
-let router = null;
 let instance = null;
-router = new VueRouter({
-  base: window.__POWERED_BY_QIANKUN__ ? "/t" : "/",
-  mode: "history",
-  routes
-});
-console.log(router)
+const routerRender = () => {
+  const router = new VueRouter({
+    base: window.__POWERED_BY_QIANKUN__ ? "/t" : "/",
+    mode: "history",
+    routes
+  });
+  return router
+}
+// console.log(router)
 console.log(startSlave);
 const { bootstrap, mount, unmount } = startSlave({
   Vue,
   options: {
     el: "#app",
-    router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    router: routerRender
   },
   name: "t",
-  port: 7002
+  port: 7002,
 });
 
 window.__POWERED_BY_QIANKUN__ || mount();

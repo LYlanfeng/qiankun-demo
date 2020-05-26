@@ -193,31 +193,20 @@
 //   console.log("first app mounted");
 // });
 
-// enStart(
-//   Vue,
-//   {
-//     el: "#container",
-//     // router,
-//     store
-//   },
-//   App,
-//   routers,
-//   lifeCycles
-// );
 import Vue from "vue";
 import App from "./App.vue";
 // import router from "./router";
 import store from "./store";
-localStorage.setItem("master", "1");
-localStorage.setItem("master-7001", "1");
-
 import {
   registerMicroApps, // 注册子应用
   runAfterFirstMounted, // 第一个子应用装载完毕
   setDefaultMountApp, // 设置默认装载子应用
   start // 启动
 } from "qiankun";
+import { startMaster } from "en-micro";
 
+localStorage.setItem("master", "1");
+localStorage.setItem("master-7001", "1");
 Vue.config.productionTip = false;
 
 export function vueRender() {
@@ -240,7 +229,7 @@ export function vueRender() {
   });
 }
 
-vueRender();
+// vueRender();
 
 // function genActiveRule(routerPrefix) {
 //   return location => location.pathname.startsWith(routerPrefix);
@@ -271,34 +260,52 @@ const routes = [
     entry: "http://localhost:8127",
     container: "#subapp-viewport",
     activeRule: "/user/ticket-wallet"
+  },
+  {
+    name: "userPayroll",
+    entry: "http://localhost:8130",
+    container: "#subapp-viewport",
+    activeRule: "/user/payroll"
   }
 ];
 const lifeCycles = {
   beforeLoad: [
     app => {
-      console.log("before load", app);
+      // console.log("before load", app);
     }
   ],
   beforeMount: [
     app => {
-      console.log("before mount", app);
+      // console.log("before mount", app);
+      console.log("[en-micro] befroe mount %c%s", "color: green;", app.name, app);
     }
   ],
   afterUnmount: [
     app => {
-      console.log("after-unmount", app);
+      // console.log("after-unmount", app);
     }
   ]
 };
-registerMicroApps(routes, lifeCycles);
+// registerMicroApps(routes, lifeCycles);
 
 // 设置默认子应用,参数与注册子应用时genActiveRule("/o")函数内的参数一致
 // setDefaultMountApp("o");
 
 // 启动微服务
-start();
+// start();
 
 // 第一个子应用加载完毕回调
 // runAfterFirstMounted(() => {
 //   console.log("first app mounted");
 // });
+startMaster(
+  Vue,
+  {
+    el: "#container",
+    // router,
+    store
+  },
+  App,
+  routes,
+  lifeCycles
+);

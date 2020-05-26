@@ -9,8 +9,11 @@ import { startSlave } from "en-micro";
 console.log(localStorage.getItem("master"));
 Vue.config.productionTip = false;
 
-let router = null;
 let instance = null;
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+
+Vue.use(ElementUI);
 // new Vue({
 //   router,
 //   store,
@@ -78,22 +81,24 @@ let instance = null;
 //     unmount
 //   };
 // };
-
-router = new VueRouter({
-  base: window.__POWERED_BY_QIANKUN__ ? "/o" : "/",
-  mode: "history",
-  routes
-});
-console.log(startSlave)
+const routerRender = () => {
+  const router = new VueRouter({
+    base: window.__POWERED_BY_QIANKUN__ ? "/o" : "/",
+    mode: "history",
+    routes
+  });
+  return router;
+};
+console.log(startSlave);
 const { bootstrap, mount, unmount } = startSlave({
   Vue,
   options: {
     el: "#app",
-    router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    router: routerRender
   },
-  microName: "o",
+  name: "o",
   port: 7001
 });
 

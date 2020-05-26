@@ -10,8 +10,7 @@ function resolve(dir) {
 const cdn = {
   css: [
     // element-ui css
-    // "https://cdn.bootcss.com/element-ui/2.13.0/theme-chalk/index.css",
-    // "http://cdn.enfry.com/enfryComponents." + enfryComponentsVersion + ".css",
+    "https://unpkg.com/element-ui/lib/theme-chalk/index.css",
     // ...externalLink.css
   ],
   js: [
@@ -21,6 +20,7 @@ const cdn = {
     "https://cdn.bootcss.com/vuex/3.1.0/vuex.min.js",
     // vue-router
     "https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js",
+    "https://unpkg.com/element-ui/lib/index.js",
   ]
 };
 const config = {
@@ -54,6 +54,7 @@ const config = {
         '@': resolve('src'),
       },
     },
+    devtool: "source-map",
     output: {
       // 把子应用打包成 umd 库格式
       library: `${name}-[name]`,
@@ -62,7 +63,7 @@ const config = {
     },
   },
 };
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   config.chainWebpack = config => {
     config.externals({
       vue: "Vue",
